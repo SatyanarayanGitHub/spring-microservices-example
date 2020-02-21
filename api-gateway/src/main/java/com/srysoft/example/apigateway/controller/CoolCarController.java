@@ -23,9 +23,8 @@ public class CoolCarController {
 	@HystrixCommand(fallbackMethod = "fallback")
 	@GetMapping("/cool-cars")
 	public Collection<Car> coolCars() {
-
 		return carClient.readCars().getContent().stream().filter(this::isCool).collect(Collectors.toList());
-
+		
 	}
 
 	private Collection<Car> fallback() {
