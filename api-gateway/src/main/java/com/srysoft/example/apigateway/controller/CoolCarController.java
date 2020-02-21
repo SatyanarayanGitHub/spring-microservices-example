@@ -1,4 +1,4 @@
-package com.srysoft.example.apigateway;
+package com.srysoft.example.apigateway.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
