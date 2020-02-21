@@ -4,14 +4,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 
+import com.srysoft.example.apigateway.config.AuthorizationHeaderFilter;
 import com.srysoft.example.apigateway.config.UserFeignClientInterceptor;
 
 import feign.RequestInterceptor;
 
+@EnableZuulProxy
 @EnableFeignClients
 @EnableCircuitBreaker
 @EnableEurekaClient
@@ -25,6 +28,11 @@ public class ApiGatewayApplication {
 	@Bean
 	public RequestInterceptor getUserFeignClientInterceptor(OAuth2AuthorizedClientService clientService) {
 		return new UserFeignClientInterceptor(clientService);
+	}
+
+	@Bean
+	public AuthorizationHeaderFilter authHeaderFilter(OAuth2AuthorizedClientService clientService) {
+		return new AuthorizationHeaderFilter(clientService);
 	}
 
 }
