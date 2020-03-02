@@ -27,6 +27,7 @@ public class CoolCarController {
 		
 	}
 
+	@SuppressWarnings("unused")
 	private Collection<Car> fallback() {
 		return new ArrayList<>();
 	}
